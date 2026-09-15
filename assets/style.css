@@ -20,7 +20,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
   line-height: 1.55;
@@ -28,19 +27,18 @@ html, body {
 
 /* ---------------------------------------------------
    backdrop — your artwork, toned down with a cream wash
-   so the card stays legible and the palette stays cohesive
+   so the card stays legible and the palette stays cohesive.
+   set directly on body (not a separate fixed layer) so it
+   renders reliably on both desktop and mobile browsers.
 --------------------------------------------------- */
-.sky {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
+body {
+  background-color: var(--bg);
   background-image:
     linear-gradient(rgba(239, 230, 214, 0.55), rgba(239, 230, 214, 0.55)),
     url("images/site-background.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 /* ---------------------------------------------------
@@ -48,6 +46,8 @@ html, body {
 --------------------------------------------------- */
 body {
   padding: 4rem 1.5rem;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 #container {
