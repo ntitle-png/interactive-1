@@ -237,8 +237,9 @@ h1 {
 
 .doodle-tools {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin-bottom: 0.5rem;
 }
 
@@ -253,6 +254,74 @@ h1 {
 
 .doodle-color.is-active {
   border-color: var(--ink);
+}
+
+.doodle-tools-label {
+  font-size: 0.85rem;
+  line-height: 1;
+  margin-left: 0.1rem;
+}
+
+.doodle-color-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+
+.doodle-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.doodle-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.doodle-color-input::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.doodle-tools-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--line);
+  margin: 0 0.15rem;
+}
+
+.doodle-size {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.doodle-size span {
+  display: block;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.doodle-size[data-size="2"] span { width: 4px; height: 4px; }
+.doodle-size[data-size="4"] span { width: 8px; height: 8px; }
+.doodle-size[data-size="8"] span { width: 14px; height: 14px; }
+
+.doodle-size.is-active {
+  border-color: var(--accent);
+  background: var(--bg-deep);
 }
 
 .doodle-clear-btn {

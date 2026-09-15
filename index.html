@@ -100,6 +100,12 @@
           <button type="button" class="doodle-color" data-color="#9a2a2a" style="background:#9a2a2a" aria-label="oxblood"></button>
           <button type="button" class="doodle-color" data-color="#6f7d3c" style="background:#6f7d3c" aria-label="olive"></button>
           <button type="button" class="doodle-color" data-color="#c68a3a" style="background:#c68a3a" aria-label="mustard"></button>
+          <span class="doodle-tools-label" aria-hidden="true">&#127912;</span>
+          <input type="color" id="doodle-color-input" class="doodle-color-input" value="#2b1d18" title="pick any color" />
+          <span class="doodle-tools-divider"></span>
+          <button type="button" class="doodle-size" data-size="2" aria-label="thin"><span></span></button>
+          <button type="button" class="doodle-size is-active" data-size="4" aria-label="medium"><span></span></button>
+          <button type="button" class="doodle-size" data-size="8" aria-label="thick"><span></span></button>
           <button type="button" id="doodle-clear" class="doodle-clear-btn">clear</button>
         </div>
         <canvas id="doodle-canvas" width="480" height="220"></canvas>
@@ -112,6 +118,7 @@
     </div>
 
     <div class="rule-double"></div>
+    <footer class="sitefoot">
       <div class="menu-footer">
         <p>&lsquo;Built for Interactive 1&rsquo;</p>
         <div class="barcode" aria-hidden="true"></div>
@@ -174,10 +181,29 @@
         canvas.addEventListener('pointerleave', function () { drawing = false; });
 
         var colorBtns = document.querySelectorAll('.doodle-color');
+        var colorInput = document.getElementById('doodle-color-input');
+
         colorBtns.forEach(function (btn) {
           btn.addEventListener('click', function () {
             ctx.strokeStyle = btn.getAttribute('data-color');
+            if (colorInput) colorInput.value = btn.getAttribute('data-color');
             colorBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+          });
+        });
+
+        if (colorInput) {
+          colorInput.addEventListener('input', function () {
+            ctx.strokeStyle = colorInput.value;
+            colorBtns.forEach(function (b) { b.classList.remove('is-active'); });
+          });
+        }
+
+        var sizeBtns = document.querySelectorAll('.doodle-size');
+        sizeBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            ctx.lineWidth = parseFloat(btn.getAttribute('data-size'));
+            sizeBtns.forEach(function (b) { b.classList.remove('is-active'); });
             btn.classList.add('is-active');
           });
         });
