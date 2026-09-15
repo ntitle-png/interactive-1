@@ -18,8 +18,8 @@
 
     <!-- masthead — edit the title/subtitle/info-bar text freely -->
     <div class="masthead">
-      <h2 class="menu-title">Menu</h2>
-      <p class="menu-subtitle">You're Cordially Invited!</p>
+      <h2 class="menu-title">MENU</h2>
+      <p class="menu-subtitle">A Little Corner of the Internet</p>
       <div class="menu-infobar">
         <span>NO TITLE</span>
         <span>FALL 2026</span>
@@ -85,8 +85,22 @@
       </ul>
     </div>
 
+    <div id="guestbook">
+      <h3>Guestbook</h3>
+      <p class="guestbook-note">leave me a note — anonymous, only i can read it.</p>
+      <!-- sign up free at formspree.io, create a form, and replace
+           YOUR_FORM_ID below (in the form action) with the ID they give you -->
+      <form id="guestbook-form" class="guestbook-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text" name="name" placeholder="name (optional)" />
+        <textarea name="message" rows="4" placeholder="say something..." required></textarea>
+        <!-- honeypot field to cut down on spam bots, leave as-is -->
+        <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" />
+        <button type="submit">send &#9733;</button>
+      </form>
+      <p id="guestbook-thanks" class="guestbook-thanks" hidden>thank you — your note has been sent &#9733;</p>
+    </div>
+
     <div class="rule-double"></div>
-    <footer class="sitefoot">
       <div class="menu-footer">
         <p>&lsquo;Built for Interactive 1&rsquo;</p>
         <div class="barcode" aria-hidden="true"></div>
@@ -95,5 +109,29 @@
     <div class="checker-band"></div>
 
   </section>
+
+  <script>
+    var gbForm = document.getElementById('guestbook-form');
+    if (gbForm) {
+      gbForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var data = new FormData(gbForm);
+        fetch(gbForm.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        }).then(function (res) {
+          if (res.ok) {
+            gbForm.hidden = true;
+            document.getElementById('guestbook-thanks').hidden = false;
+          } else {
+            alert('Something went wrong — please try again.');
+          }
+        }).catch(function () {
+          alert('Something went wrong — please try again.');
+        });
+      });
+    }
+  </script>
 </body>
 </html>

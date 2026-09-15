@@ -157,10 +157,72 @@ h1 {
 /* ---------------------------------------------------
    exercise / project lists
 --------------------------------------------------- */
-#exercises, #projects {
+#exercises, #projects, #guestbook {
   border-top: 1px solid var(--line);
   padding-top: 1.4rem;
   margin-bottom: 2.2rem;
+}
+
+.guestbook-note {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+  margin: 0 0 1rem;
+}
+
+.guestbook-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.guestbook-form input[type="text"],
+.guestbook-form textarea {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  padding: 0.6rem 0.8rem;
+  resize: vertical;
+}
+
+.guestbook-form input[type="text"]:focus,
+.guestbook-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.guestbook-form .hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.guestbook-form button {
+  align-self: flex-start;
+  font-family: var(--display);
+  font-size: 0.85rem;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.guestbook-form button:hover {
+  background: var(--accent-dim);
+}
+
+.guestbook-thanks {
+  font-family: var(--display);
+  font-size: 0.9rem;
+  color: var(--accent-dim);
+  text-align: center;
+  padding: 1rem 0;
 }
 
 h3 {
