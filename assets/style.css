@@ -27,28 +27,27 @@ html, body {
 }
 
 /* ---------------------------------------------------
-   paper grain backdrop — one quiet decorative touch
+   backdrop — your artwork, toned down with a cream wash
+   so the card stays legible and the palette stays cohesive
 --------------------------------------------------- */
 .sky {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(1px 1px at 15% 25%, var(--line) 50%, transparent 51%),
-    radial-gradient(1px 1px at 60% 10%, var(--line) 50%, transparent 51%),
-    radial-gradient(1px 1px at 80% 55%, var(--line) 50%, transparent 51%),
-    radial-gradient(1px 1px at 30% 70%, var(--line) 50%, transparent 51%),
-    radial-gradient(1px 1px at 90% 80%, var(--line) 50%, transparent 51%),
-    radial-gradient(1px 1px at 8% 88%, var(--line) 50%, transparent 51%),
-    radial-gradient(120% 90% at 50% 0%, var(--bg-deep), var(--bg) 65%);
-  opacity: 0.6;
+  background-image:
+    linear-gradient(rgba(239, 230, 214, 0.55), rgba(239, 230, 214, 0.55)),
+    url("images/site-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* ---------------------------------------------------
    page frame — double-ruled "menu board"
 --------------------------------------------------- */
 body {
-  padding: 2.5rem 1.25rem;
+  padding: 4rem 1.5rem;
 }
 
 #container {
@@ -57,7 +56,10 @@ body {
   margin: 0 auto;
   padding: 3.5rem 2.5rem 3rem;
   border: 2px solid var(--ink);
-  box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--line);
+  box-shadow:
+    0 0 0 6px var(--bg),
+    0 0 0 7px var(--line),
+    0 20px 45px rgba(20, 12, 8, 0.35);
   background: var(--bg);
 }
 
@@ -241,19 +243,6 @@ h1 {
   align-items: center;
   gap: 0.45rem;
   margin-bottom: 0.5rem;
-}
-
-.doodle-color {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  padding: 0;
-  cursor: pointer;
-}
-
-.doodle-color.is-active {
-  border-color: var(--ink);
 }
 
 .doodle-tools-label {
@@ -461,6 +450,7 @@ a:focus-visible {
    small screens
 --------------------------------------------------- */
 @media (max-width: 480px) {
+  body { padding: 1.75rem 0.75rem; }
   #container { padding: 3rem 1.25rem 3rem; }
   h1 { font-size: 1.5rem; }
   .masthead .menu-title { font-size: 3.6rem; }

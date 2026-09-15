@@ -96,10 +96,6 @@
 
         <p class="doodle-label">optional: draw me something</p>
         <div class="doodle-tools">
-          <button type="button" class="doodle-color is-active" data-color="#2b1d18" style="background:#2b1d18" aria-label="ink"></button>
-          <button type="button" class="doodle-color" data-color="#9a2a2a" style="background:#9a2a2a" aria-label="oxblood"></button>
-          <button type="button" class="doodle-color" data-color="#6f7d3c" style="background:#6f7d3c" aria-label="olive"></button>
-          <button type="button" class="doodle-color" data-color="#c68a3a" style="background:#c68a3a" aria-label="mustard"></button>
           <span class="doodle-tools-label" aria-hidden="true">&#127912;</span>
           <input type="color" id="doodle-color-input" class="doodle-color-input" value="#2b1d18" title="pick any color" />
           <span class="doodle-tools-divider"></span>
@@ -180,22 +176,10 @@
         canvas.addEventListener('pointerup', function () { drawing = false; });
         canvas.addEventListener('pointerleave', function () { drawing = false; });
 
-        var colorBtns = document.querySelectorAll('.doodle-color');
         var colorInput = document.getElementById('doodle-color-input');
-
-        colorBtns.forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            ctx.strokeStyle = btn.getAttribute('data-color');
-            if (colorInput) colorInput.value = btn.getAttribute('data-color');
-            colorBtns.forEach(function (b) { b.classList.remove('is-active'); });
-            btn.classList.add('is-active');
-          });
-        });
-
         if (colorInput) {
           colorInput.addEventListener('input', function () {
             ctx.strokeStyle = colorInput.value;
-            colorBtns.forEach(function (b) { b.classList.remove('is-active'); });
           });
         }
 
