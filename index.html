@@ -87,12 +87,23 @@
 
     <div id="guestbook">
       <h3>Guestbook</h3>
-      <p class="guestbook-note">leave me a note — anonymous, only i can read it.</p>
+      <p class="guestbook-note">leave me a note!</p>
       <!-- sign up free at formspree.io, create a form, and replace
            YOUR_FORM_ID below (in the form action) with the ID they give you -->
-      <form id="guestbook-form" class="guestbook-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="guestbook-form" class="guestbook-form" action="https://formspree.io/f/xeaqyvwk" method="POST">
         <input type="text" name="name" placeholder="name (optional)" />
         <textarea name="message" rows="4" placeholder="say something..." required></textarea>
+
+        <p class="doodle-label">optional: draw me something</p>
+        <div class="doodle-tools">
+          <button type="button" class="doodle-color is-active" data-color="#2b1d18" style="background:#2b1d18" aria-label="ink"></button>
+          <button type="button" class="doodle-color" data-color="#9a2a2a" style="background:#9a2a2a" aria-label="oxblood"></button>
+          <button type="button" class="doodle-color" data-color="#6f7d3c" style="background:#6f7d3c" aria-label="olive"></button>
+          <button type="button" class="doodle-color" data-color="#c68a3a" style="background:#c68a3a" aria-label="mustard"></button>
+          <button type="button" id="doodle-clear" class="doodle-clear-btn">clear</button>
+        </div>
+        <canvas id="doodle-canvas" width="480" height="220"></canvas>
+
         <!-- honeypot field to cut down on spam bots, leave as-is -->
         <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" />
         <button type="submit">send &#9733;</button>
@@ -111,27 +122,133 @@
   </section>
 
   <script>
-    var gbForm = document.getElementById('guestbook-form');
-    if (gbForm) {
+    (function () {
+      // ---- doodle canvas ----
+      var canvas = document.getElementById('doodle-canvas');
+      var hasDrawn = false;
+      var ctx;
+
+      function paperFill() {
+        ctx.fillStyle = '#efe6d6';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      if (canvas) {
+        ctx = canvas.getContext('2d');
+        paperFill();
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#2b1d18';
+        canvas.style.touchAction = 'none';
+
+        var drawing = false;
+        var last = null;
+
+        function getPos(e) {
+          var rect = canvas.getBoundingClientRect();
+          var scaleX = canvas.width / rect.width;
+          var scaleY = canvas.height / rect.height;
+          return {
+            x: (e.clientX - rect.left) * scaleX,
+            y: (e.clientY - rect.top) * scaleY
+          };
+        }
+
+        canvas.addEventListener('pointerdown', function (e) {
+          drawing = true;
+          hasDrawn = true;
+          last = getPos(e);
+          canvas.setPointerCapture(e.pointerId);
+        });
+        canvas.addEventListener('pointermove', function (e) {
+          if (!drawing) return;
+          var pos = getPos(e);
+          ctx.beginPath();
+          ctx.moveTo(last.x, last.y);
+          ctx.lineTo(pos.x, pos.y);
+          ctx.stroke();
+          last = pos;
+        });
+        canvas.addEventListener('pointerup', function () { drawing = false; });
+        canvas.addEventListener('pointerleave', function () { drawing = false; });
+
+        var colorBtns = document.querySelectorAll('.doodle-color');
+        colorBtns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            ctx.strokeStyle = btn.getAttribute('data-color');
+            colorBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+          });
+        });
+
+        var clearBtn = document.getElementById('doodle-clear');
+        if (clearBtn) {
+          clearBtn.addEventListener('click', function () {
+            paperFill();
+            hasDrawn = false;
+          });
+        }
+      }
+
+      // ---- guestbook form submit ----
+      var gbForm = document.getElementById('guestbook-form');
+      if (!gbForm) return;
+
+      // replace with your own values from cloudinary.com (see chat notes)
+      var CLOUD_NAME = 'zeejncwy';
+      var UPLOAD_PRESET = 'ntitle';
+
+      function uploadDoodle() {
+        return new Promise(function (resolve) {
+          canvas.toBlob(function (blob) {
+            if (!blob) { resolve(null); return; }
+            var cdata = new FormData();
+            cdata.append('file', blob, 'doodle.png');
+            cdata.append('upload_preset', UPLOAD_PRESET);
+            fetch('https://api.cloudinary.com/v1_1/' + CLOUD_NAME + '/upload', {
+              method: 'POST',
+              body: cdata
+            }).then(function (r) { return r.json(); })
+              .then(function (json) { resolve(json.secure_url || null); })
+              .catch(function () { resolve(null); });
+          }, 'image/png');
+        });
+      }
+
       gbForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        var data = new FormData(gbForm);
-        fetch(gbForm.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        }).then(function (res) {
-          if (res.ok) {
-            gbForm.hidden = true;
-            document.getElementById('guestbook-thanks').hidden = false;
-          } else {
+        var submitBtn = gbForm.querySelector('button[type="submit"]');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'sending...'; }
+
+        function proceed(doodleUrl) {
+          var data = new FormData(gbForm);
+          if (doodleUrl) data.append('doodle_url', doodleUrl);
+          fetch(gbForm.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          }).then(function (res) {
+            if (res.ok) {
+              gbForm.hidden = true;
+              document.getElementById('guestbook-thanks').hidden = false;
+            } else {
+              alert('Something went wrong — please try again.');
+              if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'send ★'; }
+            }
+          }).catch(function () {
             alert('Something went wrong — please try again.');
-          }
-        }).catch(function () {
-          alert('Something went wrong — please try again.');
-        });
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'send ★'; }
+          });
+        }
+
+        if (canvas && hasDrawn) {
+          uploadDoodle().then(proceed);
+        } else {
+          proceed(null);
+        }
       });
-    }
+    })();
   </script>
 </body>
 </html>

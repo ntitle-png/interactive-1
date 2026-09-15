@@ -225,6 +225,63 @@ h1 {
   padding: 1rem 0;
 }
 
+/* ---------------------------------------------------
+   doodle canvas
+--------------------------------------------------- */
+.doodle-label {
+  font-family: var(--display);
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+  margin: 0.2rem 0 0.4rem;
+}
+
+.doodle-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.doodle-color {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.doodle-color.is-active {
+  border-color: var(--ink);
+}
+
+.doodle-clear-btn {
+  margin-left: auto;
+  font-family: var(--display);
+  font-size: 0.7rem;
+  color: var(--ink-dim);
+  background: none;
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+}
+
+.doodle-clear-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+#doodle-canvas {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  aspect-ratio: 480 / 220;
+  border: 1px dashed var(--line);
+  background: var(--bg);
+  cursor: crosshair;
+  touch-action: none;
+}
+
 h3 {
   font-family: var(--display);
   font-size: 0.95rem;
