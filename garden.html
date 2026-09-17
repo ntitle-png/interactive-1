@@ -7,8 +7,21 @@
   <!-- same fonts + stylesheet as index.html, so this page matches the rest of the site -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Vollkorn:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Vollkorn:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
+  <!-- page-only override: pixel-style title, just for this page — the shared
+       assets/style.css (and index.html) are left untouched -->
+  <style>
+    .masthead .menu-title {
+      font-family: "Press Start 2P", var(--mono), monospace;
+      font-size: 2.3rem;
+      line-height: 1.5;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 480px) {
+      .masthead .menu-title { font-size: 1.3rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -27,22 +40,22 @@
 
     <!-- ascii garden — replace this art with your own anytime, keep the <pre class="ascii"> wrapper -->
     <pre class="ascii">
-                    \   |   /
-                      .-*-.
-                    /   |   \
+                                           88
+                                           88
+                                           88
+ ,adPPYb,d8 ,adPPYYba, 8b,dPPYba,  ,adPPYb,88  ,adPPYba, 8b,dPPYba,
+a8"    `Y88 ""     `Y8 88P'   "Y8 a8"    `Y88 a8P_____88 88P'   `"8a
+8b       88 ,adPPPPP88 88         8b       88 8PP""""""" 88       88
+"8a,   ,d88 88,    ,88 88         "8a,   ,d88 "8b,   ,aa 88       88
+ `"YbbdP"Y8 `"8bbdP"Y8 88          `"8bbdP"Y8  `"Ybbd8"' 88       88
+ aa,    ,88
+  "Y8bbdP"
 
-          @               @               @
-         @@@             @@@             @@@
-        @@@@@           @@@@@           @@@@@
-          |               |               |
-          |               |               |
-     _____|_______________|_______________|_____
-    (____________ my little garden ______________)
-     ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' '
+
     </pre>
 
-    <h1>My Little Garden</h1>
-    <p class="desc">a small ascii garden growing on no title's corner of the internet &#9733;</p>
+    <h1> </h1>
+    <p class="desc">a small ascii garden growing on the corner of the internet &#9733;</p>
 
     <div class="menu-divider"><span>&#10022;</span></div>
 
