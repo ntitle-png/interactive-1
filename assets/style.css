@@ -34,7 +34,7 @@ html, body {
 body {
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(239, 230, 214, 0.3), rgba(239, 230, 214, 0.3)),
+    linear-gradient(rgba(239, 230, 214, 0.25), rgba(239, 230, 214, 0.25)),
     url("images/site-background.jpg");
   background-size: cover;
   background-position: center;

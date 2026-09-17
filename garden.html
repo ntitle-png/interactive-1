@@ -9,8 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Vollkorn:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
-  <!-- page-only override: pixel-style title, just for this page — the shared
-       assets/style.css (and index.html) are left untouched -->
+  <!-- page-only overrides: pixel-style title + the web ring nav strip below,
+       just for this page — the shared assets/style.css (and index.html) are
+       left untouched -->
   <style>
     .masthead .menu-title {
       font-family: "Press Start 2P", var(--mono), monospace;
@@ -20,6 +21,41 @@
     }
     @media (max-width: 480px) {
       .masthead .menu-title { font-size: 1.3rem; }
+    }
+
+    /* web ring nav — same typewriter font + accent red as the rest of the
+       site, laid out like the "<< prev   next >>" strip other class sites
+       use, just recolored to match this page instead of a plain dark box */
+    .ring-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      font-family: var(--display);
+      font-size: 0.9rem;
+      margin: 0 0 2rem;
+    }
+
+    .ring-nav a {
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ring-nav a:hover,
+    .ring-nav a:focus-visible {
+      color: var(--accent-dim);
+      border-color: var(--accent-dim);
+    }
+
+    .ring-nav .ring-nav-label {
+      color: var(--ink-dim);
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .ring-nav { font-size: 0.8rem; }
+      .ring-nav .ring-nav-label { display: none; }
     }
   </style>
 </head>
@@ -38,7 +74,7 @@
     </div>
     <div class="rule-double"></div>
 
-   
+
     <pre class="ascii">
 
        *             ,
@@ -83,6 +119,16 @@
         <span class="mark">&#9733;</span>
       </li>
     </ul>
+
+    <div class="menu-divider"><span>&#10022;</span></div>
+
+    <!-- class web ring — click through to the neighboring gardens
+         (Wannie ↔ Casey ↔ Ash) -->
+    <nav class="ring-nav" aria-label="class web ring">
+      <a href="https://wannie923.github.io/Interactive-1/index.html">&laquo;&laquo; wannie</a>
+      <span class="ring-nav-label">web ring</span>
+      <a href="https://ashpursell.github.io/interactive-1/index.html">ash &raquo;&raquo;</a>
+    </nav>
 
     <div class="rule-double"></div>
     <footer class="sitefoot">
