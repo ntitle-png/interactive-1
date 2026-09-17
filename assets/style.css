@@ -132,13 +132,20 @@ body {
   font-size: 0.8rem;
 }
 
+/* ascii art — left-aligned INSIDE each line (so hand-placed indentation
+   from a copied piece of ASCII art is preserved exactly as drawn), and
+   the whole block centered as one unit via `display: table` + auto
+   margins. Using text-align: center here instead would center every
+   line independently, which throws off alignment for any art whose
+   lines aren't all the same length (most pasted ASCII art). */
 .ascii {
   font-family: var(--mono);
   font-size: 0.85rem;
   color: var(--accent);
-  text-align: center;
-  margin: 0 0 1.5rem;
+  margin: 0 auto 1.5rem;
   white-space: pre;
+  text-align: left;
+  display: table;
 }
 
 h1 {
