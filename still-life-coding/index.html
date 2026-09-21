@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS 静物画 - 秋日餐桌</title>
+  <!-- 只引入一个外部样式表，所有形状都在 style.css 里用纯 CSS 画出来 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       整幅画的容器（画布）。
+       它是 position: relative，作为里面所有物体做 absolute 定位时的参照。
+       ============================================================ -->
+  <div class="scene">
+
+    <!-- 背景：墙 + 里侧桌子 + 外侧桌子 -->
+    <div class="wall"></div>
+    <div class="back-table"></div>
+    <div class="table"></div>
+
+    <!-- 桌布（黄蓝格子） -->
+    <div class="cloth"></div>
+
+    <!-- 1. 左边：蓝色玻璃瓶 + 干花 -->
+    <div class="bottle">
+      <div class="bottle-neck"></div>
+      <div class="flower-stem stem-1"></div>
+      <div class="flower-stem stem-2"></div>
+      <div class="flower-stem stem-3"></div>
+      <div class="flower-dot dot-1"></div>
+      <div class="flower-dot dot-2"></div>
+      <div class="flower-dot dot-3"></div>
+    </div>
+
+    <!-- 2. 中间：黄铜烛台 + 蜡烛 + 戒指 -->
+    <div class="candle-holder">
+      <div class="holder-dish"></div>
+      <div class="holder-cup"></div>
+    </div>
+    <div class="candle">
+      <div class="flame"></div>
+    </div>
+    <div class="ring"></div>
+
+    <!-- 3. 右边：条纹南瓜 + 身后的葫芦 + 前面的黄南瓜 -->
+    <div class="gourd-tan"></div>
+    <div class="pumpkin">
+      <div class="pumpkin-stem"></div>
+    </div>
+    <div class="squash-yellow"></div>
+
+  </div>
+
+</body>
+</html>
