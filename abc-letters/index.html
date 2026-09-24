@@ -2,22 +2,36 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>A B C - CSS 字母</title>
+<title>A B C - CSS 字母（独特版）</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>用 CSS 拼 A / B / C</h1>
-<p>每个字母都是一个独立的 <code>&lt;div class="letter-frame"&gt;</code>，里面用几个矩形/圆形拼出来。想改哪个字母，就去 style.css 里找对应的注释段落。</p>
+<h1>用 CSS 拼 A / B / C（独特版）</h1>
+<p>每个字母都是一个独立的 <code>&lt;div class="letter-frame"&gt;</code>。想改哪个字母，就去 style.css 里找对应的注释段落。</p>
 
 <div class="gallery">
 
-  <!-- 字母 A：两条斜着的矩形腿 + 一条横杠 -->
+  <!-- 字母 A：左腿是实心斜腿，右腿改成一串小三角形，横杠改成 5 条细线 -->
   <figure class="card">
     <div class="letter-frame">
       <div class="a-leg-left"></div>
-      <div class="a-leg-right"></div>
-      <div class="a-bar"></div>
+
+      <!-- 右腿的外壳负责位置和旋转，里面 6 个三角形负责"画满" -->
+      <div class="a-leg-right-shell">
+        <div class="a-tri"></div>
+        <div class="a-tri"></div>
+        <div class="a-tri"></div>
+        <div class="a-tri"></div>
+        <div class="a-tri"></div>
+        <div class="a-tri"></div>
+      </div>
+
+      <div class="a-bar-line"></div>
+      <div class="a-bar-line"></div>
+      <div class="a-bar-line"></div>
+      <div class="a-bar-line"></div>
+      <div class="a-bar-line"></div>
     </div>
     <figcaption>A</figcaption>
   </figure>
@@ -34,12 +48,19 @@
     <figcaption>B</figcaption>
   </figure>
 
-  <!-- 字母 C：一个圆环（大圆 + 挖掉中间小圆）+ 挖开右边一个缺口 -->
+  <!-- 字母 C：8 个从大到小排列的圆点，沿一个假想圆环摆出 C 的形状 -->
   <figure class="card">
     <div class="letter-frame">
-      <div class="c-ring"></div>
-      <div class="c-ring-hole"></div>
-      <div class="c-opening"></div>
+      <div class="c-frame">
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+        <div class="c-dot"></div>
+      </div>
     </div>
     <figcaption>C</figcaption>
   </figure>
