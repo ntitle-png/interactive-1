@@ -1,0 +1,166 @@
+/* ============================================================
+   第 0 段：全局
+   ============================================================ */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #fff;
+  font-family: system-ui, sans-serif;
+  padding: 32px;
+}
+.gallery {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.card { text-align: center; }
+.card figcaption {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #444;
+}
+
+/* ============================================================
+   第 1 段：字母画布
+   ------------------------------------------------------------
+   所有字母共用同一个尺寸和背景色。
+   注意这个背景色 #f5f5f5 后面会被反复用到（"挖洞"技巧要用它），
+   所以如果你改了这里的颜色，下面挖洞用到的颜色也要跟着改。
+   ============================================================ */
+.letter-frame {
+  position: relative;
+  width: 140px;
+  height: 180px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+/* ============================================================
+   第 2 段：字母 A
+   ------------------------------------------------------------
+   两条矩形"腿"分别向左、向右旋转，底部对齐、顶部靠拢，
+   看起来就像 A 的两条斜边；中间再压一条横杠。
+   ============================================================ */
+.a-leg-left {
+  position: absolute;
+  width: 22px;
+  height: 150px;
+  background: #111;
+  left: 20px;
+  top: 15px;
+  transform: rotate(12deg);
+  transform-origin: bottom center; /* 让旋转的"支点"在底部，而不是正中心 */
+}
+.a-leg-right {
+  position: absolute;
+  width: 22px;
+  height: 150px;
+  background: #111;
+  left: 98px;
+  top: 15px;
+  transform: rotate(-12deg);
+  transform-origin: bottom center;
+}
+.a-bar {
+  position: absolute;
+  width: 70px;
+  height: 20px;
+  background: #111;
+  left: 35px;
+  top: 100px;
+}
+/* 想改 A 的"胖瘦"：改两条腿的 width
+   想改 A 的"开口角度"：改 rotate() 的角度（数值越大开口越宽）
+   想改横杠位置：改 .a-bar 的 top */
+
+/* ============================================================
+   第 3 段：字母 B
+   ------------------------------------------------------------
+   思路：先画一条竖脊 + 两个圆角凸起（这样是个实心的形状），
+   再用"背景色的形状"盖在凸起中间，制造出中空的视觉效果——
+   这是一个很好用的小技巧：想让某处看起来"镂空"，
+   只要在上面盖一个和背景色相同的图形就行。
+   ============================================================ */
+.b-spine {
+  position: absolute;
+  width: 24px;
+  height: 160px;
+  background: #111;
+  left: 20px;
+  top: 10px;
+}
+.b-bump-top {
+  position: absolute;
+  width: 70px;
+  height: 75px;
+  background: #111;
+  border-radius: 0 38px 38px 0; /* 只圆右边两个角，左边保持直角贴着竖脊 */
+  left: 30px;
+  top: 10px;
+}
+.b-bump-top-hole {
+  position: absolute;
+  width: 30px;
+  height: 38px;
+  background: #f5f5f5; /* 必须和 .letter-frame 的背景色一致，才能"隐形挖洞" */
+  border-radius: 0 20px 20px 0;
+  left: 42px;
+  top: 24px;
+}
+.b-bump-bottom {
+  position: absolute;
+  width: 78px;
+  height: 85px;
+  background: #111;
+  border-radius: 0 42px 42px 0;
+  left: 30px;
+  top: 85px;
+}
+.b-bump-bottom-hole {
+  position: absolute;
+  width: 34px;
+  height: 46px;
+  background: #f5f5f5;
+  border-radius: 0 22px 22px 0;
+  left: 42px;
+  top: 100px;
+}
+/* 想改 B 的胖瘦：改两个 bump 的 width
+   想改"镂空"大小：改对应 hole 的 width/height（太大会露出竖脊外边，注意别越界）*/
+
+/* ============================================================
+   第 4 段：字母 C
+   ------------------------------------------------------------
+   思路：先画一个实心大圆，
+   在中间盖一个背景色的小圆 → 变成一个圆环（像甜甜圈），
+   再在圆环右边盖一个背景色的方块，把环"切开一个缺口" → 变成 C。
+   ============================================================ */
+.c-ring {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #111;
+  left: 5px;
+  top: 25px;
+}
+.c-ring-hole {
+  position: absolute;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #f5f5f5; /* 挖出圆环中间的洞 */
+  left: 31px;
+  top: 51px;
+}
+.c-opening {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  background: #f5f5f5; /* 把圆环右边盖掉一块，露出缺口 */
+  left: 82px;
+  top: 62px;
+}
+/* 想让 C 的开口更大/更小：改 .c-opening 的 width/height
+   想让圆环更粗/更细：改 .c-ring 和 .c-ring-hole 两者尺寸的差值
+   （差值越大，环越粗）*/
