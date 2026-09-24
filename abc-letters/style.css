@@ -105,54 +105,63 @@ body {
    想让横线更疏/更密：改 .a-bar-line 之间 top 的间距 */
 
 /* ============================================================
-   第 3 段：字母 B（沿用原来的思路，没有改动）
+   第 3 段：字母 B（改版：参考图 —— 一条竖着的"胶囊"+ 两个正圆）
    ------------------------------------------------------------
-   一条竖脊 + 两个圆角凸起，凸起中间盖一个背景色形状"挖空"。
+   竖杆：一个又高又窄的矩形，border-radius 设成宽度的一半，
+   两端就会变成半圆，整体看起来像一颗"胶囊药丸"。
+   两个圆形（上下各一个，尺寸相同，正好在中间接触）叠在
+   竖杆右边，模拟 B 的两个凸起。
+   "掏空"：每个圆里面再叠一个小圆，颜色跟画框背景一致，
+   小圆直径正好是大圆的一半、并且圆心对齐大圆圆心，
+   靠左边缘刚好贴到竖杆的内壁，这样镂空的部分不会啃到竖杆上。
    ============================================================ */
 .b-spine {
   position: absolute;
-  width: 24px;
+  width: 46px;
   height: 160px;
   background: #111;
+  border-radius: 23px; /* = width 的一半 → 上下两端变圆角，形成胶囊形 */
   left: 20px;
-  top: 10px;
+  top: 15px;
 }
-.b-bump-top {
+.b-circle-top {
   position: absolute;
-  width: 70px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   background: #111;
-  border-radius: 0 38px 38px 0;
-  left: 30px;
-  top: 10px;
+  left: 46px;
+  top: 15px;
 }
-.b-bump-top-hole {
+.b-circle-top-hole {
   position: absolute;
-  width: 30px;
-  height: 38px;
-  background: #f5f5f5;
-  border-radius: 0 20px 20px 0;
-  left: 42px;
-  top: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f5f5f5; /* 必须和 .letter-frame 的背景色一致 */
+  left: 66px;
+  top: 35px;
 }
-.b-bump-bottom {
+.b-circle-bottom {
   position: absolute;
-  width: 78px;
-  height: 85px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   background: #111;
-  border-radius: 0 42px 42px 0;
-  left: 30px;
-  top: 85px;
+  left: 46px;
+  top: 95px; /* 正好接在上面那个圆的下边缘（15 + 80 = 95），两圆无缝相切 */
 }
-.b-bump-bottom-hole {
+.b-circle-bottom-hole {
   position: absolute;
-  width: 34px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: #f5f5f5;
-  border-radius: 0 22px 22px 0;
-  left: 42px;
-  top: 100px;
+  left: 66px;
+  top: 115px;
 }
+/* 想让镂空更大/更小：同时改两个 hole 的 width/height（保持是圆大小的一半左右最好看）
+   想让整体更瘦/更胖：改 .b-spine 和两个圆的 width，注意圆的 left 要跟着竖杆宽度联动 */
 
 /* ============================================================
    第 4 段：字母 C（改版：不再是一个圆环，而是一串"由大到小"的圆）
