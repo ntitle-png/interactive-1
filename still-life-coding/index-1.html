@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Collective Alphabet - 图形套件字母</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>基础图形套件 → 重新设计字母</h1>
+<p>规则：只用下面这四种图形（三角形×2方向、方块、圆形），靠缩放 / 旋转 / 重新摆放拼出字母。</p>
+
+<div class="gallery">
+
+  <!-- ============================================================
+       示例 0：图形套件本身（就是每张卡片下面那个小图标）
+       ============================================================ -->
+  <figure class="card">
+    <div class="letter-frame" style="height:60px;">
+      <div class="shape shape-tri-right" style="--w:26px;--h:36px;--color:#111; left:14px; top:12px;"></div>
+      <div class="shape shape-square"    style="--w:34px;--h:12px;--color:#111; left:44px; top:24px;"></div>
+      <div class="shape shape-tri-left"  style="--w:26px;--h:36px;--color:#111; left:82px; top:12px;"></div>
+      <div class="shape shape-circle"    style="--w:20px;--h:20px;--color:#111; left:118px; top:20px;"></div>
+    </div>
+    <figcaption>套件（三角 / 方块 / 三角 / 圆）</figcaption>
+  </figure>
+
+  <!-- ============================================================
+       示例 1：字母 T —— 只用「方块」这一种图形
+       竖的一条 + 横的一条，十字交叉的位置决定像不像 T
+       ============================================================ -->
+  <figure class="card">
+    <div class="letter-frame">
+      <!-- 竖着的长条：宽窄、高矮直接改 --w / --h -->
+      <div class="shape shape-square" style="--w:20px; --h:120px; --color:#111; left:70px; top:30px;"></div>
+      <!-- 横着的长条，压在竖条顶端 -->
+      <div class="shape shape-square" style="--w:120px; --h:20px; --color:#111; left:20px; top:30px;"></div>
+    </div>
+    <figcaption>字母 T（2 个方块）</figcaption>
+  </figure>
+
+  <!-- ============================================================
+       示例 2：字母 X —— 还是「方块」，只是加了旋转
+       两条长方块，分别转 45deg 和 -45deg，交叉在画框中心
+       ============================================================ -->
+  <figure class="card">
+    <div class="letter-frame">
+      <div class="shape shape-square" style="--w:140px; --h:18px; --color:#111; --rot:45deg;  left:10px; top:71px;"></div>
+      <div class="shape shape-square" style="--w:140px; --h:18px; --color:#111; --rot:-45deg; left:10px; top:71px;"></div>
+    </div>
+    <figcaption>字母 X（2 个方块 + 旋转）</figcaption>
+  </figure>
+
+  <!-- ============================================================
+       示例 3：字母 W —— 用「三角形」拼出锯齿状
+       四个三角形，两两一组转成 V 字形，两个 V 并排就是 W
+       （--rot 的角度可以自己微调，让尖角对得更整齐）
+       ============================================================ -->
+  <figure class="card">
+    <div class="letter-frame">
+      <div class="shape shape-tri-right" style="--w:60px; --h:22px; --color:#111; --rot:45deg;  left:8px;  top:20px;"></div>
+      <div class="shape shape-tri-left"  style="--w:60px; --h:22px; --color:#111; --rot:-45deg; left:38px; top:20px;"></div>
+      <div class="shape shape-tri-right" style="--w:60px; --h:22px; --color:#111; --rot:45deg;  left:62px; top:20px;"></div>
+      <div class="shape shape-tri-left"  style="--w:60px; --h:22px; --color:#111; --rot:-45deg; left:92px; top:20px;"></div>
+    </div>
+    <figcaption>字母 W（4 个三角形 + 旋转）</figcaption>
+  </figure>
+
+  <!-- ============================================================
+       空白模板：复制这一整块 <figure>，改形状/数值来设计你自己的字母
+       ============================================================ -->
+  <figure class="card">
+    <div class="letter-frame" id="my-letter">
+      <!-- 在这里加你自己的 .shape 元素，四种图形随便组合 -->
+      <div class="shape shape-circle" style="--w:40px;--h:40px;--color:#e74c3c; left:60px; top:60px;"></div>
+    </div>
+    <figcaption>空白模板：换成你自己的字母</figcaption>
+  </figure>
+
+</div>
+
+</body>
+</html>

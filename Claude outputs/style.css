@@ -1,0 +1,90 @@
+/* ============================================================
+   第 0 段：全局
+   ============================================================ */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fff;
+  font-family: system-ui, sans-serif;
+  padding: 32px;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+.card {
+  text-align: center;
+}
+.card figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* ============================================================
+   第 1 段：字母画布 .letter-frame
+   ------------------------------------------------------------
+   每一个字母都装在一个固定大小的方框里。
+   position: relative → 让里面的图形可以用 position: absolute 精确摆放。
+   ============================================================ */
+.letter-frame {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+/* ============================================================
+   第 2 段：基础图形套件（就是每张卡片下面那个小图标里的四种形状）
+   ------------------------------------------------------------
+   四个 class：三角形（右指）、三角形（左指，就是右指的镜像）、
+   方块、圆形。全部用 CSS 自定义属性（--w --h --color --rot）
+   来控制大小/颜色/旋转角度，这样重复使用时只需要改变量，
+   不用每次都重写一整段 CSS。
+   ============================================================ */
+.shape {
+  position: absolute;
+  /* 默认值，用的时候可以在行内 style 里覆盖 */
+  --w: 40px;
+  --h: 40px;
+  --color: #111;
+  --rot: 0deg;
+  transform: rotate(var(--rot));
+}
+
+/* 三角形：宽高设为 0，靠 border 的三条边"挤"出一个三角形。
+   这里画的是"尖朝右"的三角形。 */
+.shape-tri-right {
+  width: 0;
+  height: 0;
+  border-top: calc(var(--h) / 2) solid transparent;
+  border-bottom: calc(var(--h) / 2) solid transparent;
+  border-left: var(--w) solid var(--color);
+}
+
+/* 尖朝左：跟上面完全一样，只是把 border-left 换成 border-right */
+.shape-tri-left {
+  width: 0;
+  height: 0;
+  border-top: calc(var(--h) / 2) solid transparent;
+  border-bottom: calc(var(--h) / 2) solid transparent;
+  border-right: var(--w) solid var(--color);
+}
+
+/* 方块 / 长条：改 --w 和 --h 的比例就能从正方形变成长条 */
+.shape-square {
+  width: var(--w);
+  height: var(--h);
+  background: var(--color);
+}
+
+/* 圆形：宽高相等 + border-radius: 50% */
+.shape-circle {
+  width: var(--w);
+  height: var(--h);
+  border-radius: 50%;
+  background: var(--color);
+}
