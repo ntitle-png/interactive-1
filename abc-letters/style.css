@@ -36,10 +36,13 @@ body {
 }
 
 /* ============================================================
-   第 2 段：字母 A
+   第 2 段：字母 A（改版：一条腿换成小三角形，横杠换成多条细线）
    ------------------------------------------------------------
-   两条矩形"腿"分别向左、向右旋转，底部对齐、顶部靠拢，
-   看起来就像 A 的两条斜边；中间再压一条横杠。
+   左腿保持原来的实心矩形斜腿；
+   右腿改成一个"容器 + 6 个小三角形"：容器本身负责整体的
+   位置和旋转角度（跟原来的腿完全一样），三角形只负责把
+   容器内部"画满"，这样腿看起来是锯齿状而不是一条实线。
+   横杠原来是一整块矩形，现在拆成 5 条细横线加小间距。
    ============================================================ */
 .a-leg-left {
   position: absolute;
@@ -49,37 +52,62 @@ body {
   left: 20px;
   top: 15px;
   transform: rotate(12deg);
-  transform-origin: bottom center; /* 让旋转的"支点"在底部，而不是正中心 */
+  transform-origin: bottom center; /* 支点在底部，腿像扇子一样张开 */
 }
-.a-leg-right {
+
+/* 右腿的"外壳"：不画背景色，只负责定位和旋转，
+   跟左腿用的是完全相同的宽/高/位置/旋转角度参数，
+   这样两条腿的底部会对齐在同一条基准线上 */
+.a-leg-right-shell {
   position: absolute;
   width: 22px;
   height: 150px;
-  background: #111;
   left: 98px;
   top: 15px;
   transform: rotate(-12deg);
   transform-origin: bottom center;
 }
-.a-bar {
+/* 壳内部的小三角形：每个高 25px，6 个刚好铺满 150px 的高度，
+   宽度等于壳的宽度（22px），一个接一个往下摆，
+   看起来像一串锯齿 / 箭头堆叠出来的"腿" */
+.a-tri {
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 25px solid #111;
+}
+/* 6 个三角形的位置，只是纵向依次往下排 */
+.a-tri:nth-child(1) { top: 0px; }
+.a-tri:nth-child(2) { top: 25px; }
+.a-tri:nth-child(3) { top: 50px; }
+.a-tri:nth-child(4) { top: 75px; }
+.a-tri:nth-child(5) { top: 100px; }
+.a-tri:nth-child(6) { top: 125px; }
+
+/* 横杠：从 1 条粗横杠拆成 5 条细横线 + 间隙 */
+.a-bar-line {
   position: absolute;
   width: 70px;
-  height: 20px;
+  height: 3px;
   background: #111;
   left: 35px;
-  top: 100px;
 }
-/* 想改 A 的"胖瘦"：改两条腿的 width
-   想改 A 的"开口角度"：改 rotate() 的角度（数值越大开口越宽）
-   想改横杠位置：改 .a-bar 的 top */
+.a-bar-line:nth-child(1) { top: 100px; }
+.a-bar-line:nth-child(2) { top: 106px; }
+.a-bar-line:nth-child(3) { top: 112px; }
+.a-bar-line:nth-child(4) { top: 118px; }
+.a-bar-line:nth-child(5) { top: 124px; }
+
+/* 想让锯齿更密：把三角形高度改小（比如 15px），数量改成 10 个
+   想让横线更疏/更密：改 .a-bar-line 之间 top 的间距 */
 
 /* ============================================================
-   第 3 段：字母 B
+   第 3 段：字母 B（沿用原来的思路，没有改动）
    ------------------------------------------------------------
-   思路：先画一条竖脊 + 两个圆角凸起（这样是个实心的形状），
-   再用"背景色的形状"盖在凸起中间，制造出中空的视觉效果——
-   这是一个很好用的小技巧：想让某处看起来"镂空"，
-   只要在上面盖一个和背景色相同的图形就行。
+   一条竖脊 + 两个圆角凸起，凸起中间盖一个背景色形状"挖空"。
    ============================================================ */
 .b-spine {
   position: absolute;
@@ -94,7 +122,7 @@ body {
   width: 70px;
   height: 75px;
   background: #111;
-  border-radius: 0 38px 38px 0; /* 只圆右边两个角，左边保持直角贴着竖脊 */
+  border-radius: 0 38px 38px 0;
   left: 30px;
   top: 10px;
 }
@@ -102,7 +130,7 @@ body {
   position: absolute;
   width: 30px;
   height: 38px;
-  background: #f5f5f5; /* 必须和 .letter-frame 的背景色一致，才能"隐形挖洞" */
+  background: #f5f5f5;
   border-radius: 0 20px 20px 0;
   left: 42px;
   top: 24px;
@@ -125,42 +153,38 @@ body {
   left: 42px;
   top: 100px;
 }
-/* 想改 B 的胖瘦：改两个 bump 的 width
-   想改"镂空"大小：改对应 hole 的 width/height（太大会露出竖脊外边，注意别越界）*/
 
 /* ============================================================
-   第 4 段：字母 C
+   第 4 段：字母 C（改版：不再是一个圆环，而是一串"由大到小"的圆）
    ------------------------------------------------------------
-   思路：先画一个实心大圆，
-   在中间盖一个背景色的小圆 → 变成一个圆环（像甜甜圈），
-   再在圆环右边盖一个背景色的方块，把环"切开一个缺口" → 变成 C。
+   思路：沿着一个假想的圆形路径，从右上方开始放一个大圆点，
+   绕着圆心一路摆到右下方，圆点越摆越小，右边留出缺口
+   （缺口就是 C 的开口），首尾大小不同看起来更有动感。
+   每个点的位置是提前用三角函数算好的坐标，直接写死在这里；
+   想整体挪动 C，只要改 .c-frame 这个外层容器的 left/top 就行，
+   不用一个个改里面的圆点。
    ============================================================ */
-.c-ring {
+.c-frame {
   position: absolute;
-  width: 130px;
-  height: 130px;
+  left: 0;
+  top: 0;
+  width: 140px;
+  height: 180px;
+}
+.c-dot {
+  position: absolute;
   border-radius: 50%;
   background: #111;
-  left: 5px;
-  top: 25px;
 }
-.c-ring-hole {
-  position: absolute;
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-  background: #f5f5f5; /* 挖出圆环中间的洞 */
-  left: 31px;
-  top: 51px;
-}
-.c-opening {
-  position: absolute;
-  width: 55px;
-  height: 55px;
-  background: #f5f5f5; /* 把圆环右边盖掉一块，露出缺口 */
-  left: 82px;
-  top: 62px;
-}
-/* 想让 C 的开口更大/更小：改 .c-opening 的 width/height
-   想让圆环更粗/更细：改 .c-ring 和 .c-ring-hole 两者尺寸的差值
-   （差值越大，环越粗）*/
+.c-dot:nth-child(1) { width: 30px; height: 30px; left: 84px;  top: 25px;  }
+.c-dot:nth-child(2) { width: 26px; height: 26px; left: 52px;  top: 19px;  }
+.c-dot:nth-child(3) { width: 22px; height: 22px; left: 22px;  top: 35px;  }
+.c-dot:nth-child(4) { width: 18px; height: 18px; left: 5px;   top: 66px;  }
+.c-dot:nth-child(5) { width: 14px; height: 14px; left: 9px;   top: 103px; }
+.c-dot:nth-child(6) { width: 11px; height: 11px; left: 31.5px;top: 132.5px; }
+.c-dot:nth-child(7) { width: 9px;  height: 9px;  left: 65.5px;top: 143.5px; }
+.c-dot:nth-child(8) { width: 7px;  height: 7px;  left: 99.5px;top: 134.5px; }
+
+/* 想让缺口更大/更小：删掉或加回第 1 个和第 8 个点
+   想让"渐变"更明显：把最大的点（30px）和最小的点（7px）
+   之间的差距拉得更大，比如改成 36px → 4px */
