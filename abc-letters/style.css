@@ -155,5 +155,5 @@ body {
   to   { transform: rotate(360deg); }
 }
 .c-frame {
-  animation: c-spin 6s;
-
+  animation: spin 6s infinite;
+}
