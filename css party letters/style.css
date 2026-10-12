@@ -1,0 +1,171 @@
+:root {
+  --paper: #eef1ef;
+  --ink: #1d1f22;
+  --white: #ffffff;
+  --line: .14em;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  background: var(--paper);
+  font-family: sans-serif;
+}
+
+.stage {
+  font-size: clamp(8px, 2.5vw, 22px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 5em .9em;
+  padding-top: 5em;
+}
+
+.letter {
+  position: relative;
+  width: var(--bw);
+  height: 8.5em;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.glyph {
+  position: absolute;
+  inset: 0;
+}
+
+.p {
+  position: absolute;
+  box-sizing: border-box;
+  left: calc(var(--x) * 1em);
+  top: calc(var(--y) * 1em);
+  width: calc(var(--w) * 1em);
+  height: calc(var(--h) * 1em);
+  transform: rotate(var(--r, 0deg));
+  transform-origin: 50% 90%;
+  background: var(--white);
+  border: var(--line) solid var(--ink);
+  border-radius: 999px;
+}
+
+.torso {
+  border-radius: 1em 1em .55em .55em;
+}
+
+.torso::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--line);
+  height: 1.4em;
+  background: var(--ink);
+}
+
+.head::before,
+.head::after {
+  content: "";
+  position: absolute;
+  top: 40%;
+  width: .17em;
+  height: .34em;
+  border-radius: 1em;
+  background: var(--ink);
+}
+
+.head::before { left: 33%; }
+.head::after { left: 60%; }
+
+.arc {
+  border-radius: .9em 1.9em 1.9em .9em;
+}
+
+.hole {
+  position: absolute;
+  box-sizing: border-box;
+  top: 1.25em;
+  left: -.3em;
+  width: calc(100% - 1.23em);
+  height: calc(100% - 2.78em);
+  background: var(--paper);
+  border: var(--line) solid var(--ink);
+  border-left: 0;
+  border-radius: 0 .9em .9em 0;
+}
+
+.pose {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 3em);
+  width: 6em;
+  height: 11.5em;
+  display: none;
+}
+
+.letter.crouch .glyph,
+.letter.jump .glyph {
+  visibility: hidden;
+}
+
+.letter.crouch .sit,
+.letter.jump .up {
+  display: block;
+}
+
+.letter.jump .up {
+  animation: hop .9s steps(1), party .6s linear infinite;
+}
+
+@keyframes party {
+  to { filter: hue-rotate(360deg); }
+}
+
+@keyframes hop {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-1.5em); }
+  50% { transform: translateY(-.4em); }
+  70% { transform: translateY(-1em); }
+  100% { transform: translateY(0); }
+}
+
+.bit {
+  position: fixed;
+  width: 8px;
+  height: 5px;
+  pointer-events: none;
+  animation: fly .9s ease-out forwards;
+}
+
+@keyframes fly {
+  to {
+    transform: translate(var(--dx), var(--dy)) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.btn {
+  padding: 9px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--ink);
+  color: var(--white);
+}
