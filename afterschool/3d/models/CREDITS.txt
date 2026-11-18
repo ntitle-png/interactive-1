@@ -1,0 +1,12 @@
+warehouse_skeleton.glb
+  Based on "Abandoned Warehouse - Interior Scene" by Aurélien Martel
+  https://sketchfab.com/3d-models/abandoned-warehouse-interior-scene-1d5285f2e0fd4211a27c8042496d5959
+  License: CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
+  Changes: all materials and textures removed; rubble, cables, cardboard and decals removed; lamps simplified.
+
+backrooms_skeleton.glb
+  Based on "Backrooms VR" by VTX (Sketchfab)
+  License: CHECK THE MODEL PAGE ON SKETCHFAB and fill it in here before publishing.
+  Changes: all materials and textures removed; small props (sensors, sockets, vents) removed; chairs and doors simplified.
+
+Both files: floor is at y = 0, units are meters. Nodes are named structure__* and props__*.
